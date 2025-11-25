@@ -1,11 +1,11 @@
-name: Claude Code Actions
+name: Claude Code PR
 
 on:
   pull_request:
     types: [opened, reopened, ready_for_review]
 
 jobs:
-  claude-code-action:
+  claude-code-pr:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -26,6 +26,6 @@ jobs:
           prompt: "このPRの内容を厳しくレビューし、マージできる品質かどうか判断して。修正が必要なポイントも提示して。"
           claude_args: |
             --model claude-sonnet-4-5
-            --allowedTools "mcp__github__*,Read,Grep,Glob,WebSearch,LS,Edit,Bash(npm:*)"
+            --allowedTools mcp__github,Read,Grep,Glob,WebSearch,LS,Edit,Bash(npm:*)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
